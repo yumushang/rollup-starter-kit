@@ -1,5 +1,5 @@
 import filesize from 'rollup-plugin-filesize';
-import uglify from 'rollup-plugin-uglify';
+import { uglify } from 'rollup-plugin-uglify';
 import { minify } from 'uglify-es';
 
 import baseConfig from './rollup.config.base';
@@ -24,22 +24,22 @@ export default [
         format: 'umd',
         name,
         banner,
-        sourcemap: true
+        sourcemap: true,
       },
       // cjs and esm version
       {
         file: `dist/${name}.cjs.js`,
         format: 'cjs',
-        banner
+        banner,
       },
       // cjs and esm version
       {
         file: `dist/${name}.esm.js`,
         format: 'es',
-        banner
-      }
+        banner,
+      },
     ],
-    plugins: [...baseConfig.plugins, filesize()]
+    plugins: [...baseConfig.plugins, filesize()],
   },
   // .min.js
   {
@@ -50,20 +50,20 @@ export default [
         file: `dist/${name}.min.js`,
         format: 'umd',
         name,
-        banner
-      }
+        banner,
+      },
     ],
     plugins: [
       ...baseConfig.plugins,
       uglify(
         {
           compress: {
-            drop_console: true
-          }
+            drop_console: true,
+          },
         },
         minify
       ),
-      filesize()
-    ]
-  }
+      filesize(),
+    ],
+  },
 ];
